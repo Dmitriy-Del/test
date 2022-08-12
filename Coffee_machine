@@ -1,0 +1,77 @@
+var waterAct = 400
+    var milkAct = 540
+    var beansAct = 120
+    var moneyAct = 550
+    var cupsAct = 9
+
+    fun makeCoffee(water: Int, milk: Int, beans: Int, money: Int) {
+        if(waterAct > water && milkAct > milk && beansAct > beans) {
+            println("I have enough resources, making you a coffee!\n")
+            cupsAct--
+            waterAct -= water
+            milkAct -= milk
+            beansAct -= beans
+            moneyAct += money
+        }else if(waterAct < water) {
+            println("Sorry, not enough water!")
+        }else if(milkAct < milk){
+            println("Sorry, not enough milk!")
+        }else if(beansAct < beans){
+            println("Sorry, not enough milk!")
+        }
+    }
+
+
+     fun buy(){
+        print("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino, back - to main menu:")
+        when (readln()) {
+            "1" -> makeCoffee(250, 0, 16, 4)
+            "2" -> makeCoffee(350, 75, 20, 7)
+            "3" -> makeCoffee(200, 100, 12, 6)
+            "back" -> return
+            else -> println("Wrong option, idiot!")
+        }
+     }
+
+    fun fill() {
+        print("Write how many ml of water do you want to add:")
+        waterAct += readln().toInt()
+        print("Write how many ml of milk do you want to add:")
+        milkAct += readln().toInt()
+        print("Write how many grams of coffee beans do you want to add:")
+        beansAct += readln().toInt()
+        print("Write how many disposable cups of coffee do you want to add:")
+        cupsAct += readln().toInt()
+        println()
+    }
+
+    fun take() {
+        println("I gave you $$moneyAct")
+        moneyAct = 0
+    }
+
+    fun writeStatus() {
+        println("""
+The coffee machine has:
+$waterAct ml of water
+$milkAct ml of milk
+$beansAct g of coffee beans
+$cupsAct disposable cups
+${'$'}$moneyAct of money
+""".trimIndent())
+    }
+
+
+fun main() {
+    do {
+        print("Write action (buy, fill, take, remaining, exit):")
+        val youAnswer = readln()
+        when (youAnswer) {
+            "buy" -> buy()
+            "fill" -> fill()
+            "take" -> take()
+            "remaining" -> writeStatus()
+        }
+    } while (youAnswer != "exit")
+
+}
